@@ -17,5 +17,5 @@ $app->get('/', function () use ($app) {
 $app->group(['prefix' => 'v1'], function($app){
   $app->get('meetings/{hash}', 'MeetingsController@get');
   $app->post('meetings', 'MeetingsController@create');
-  $app->post('meetings/{hash}', 'MeetingsAnswersController@create');
+  $app->post('meetings/{hash}', 'MeetingAnswersController@create');
 });
