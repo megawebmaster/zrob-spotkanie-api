@@ -34,7 +34,8 @@ class MeetingsController extends Controller
         $meetingDay = $meeting->days()->create($day);
         $start = $this->_getMinutes($meetingDay->getAttribute('from'));
         $end = $this->_getMinutes($meetingDay->getAttribute('to'));
-        $hours = range($start, $end, $meeting->getAttribute('resolution'));
+        $resolution = (int)$meeting->getAttribute('resolution');
+        $hours = range($start, $end - $resolution, $resolution);
 
         foreach($hours as $hour)
         {
