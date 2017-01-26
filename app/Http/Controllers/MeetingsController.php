@@ -24,6 +24,26 @@ class MeetingsController extends Controller
 
   public function create(Request $request)
   {
+    $this->validate($request, [
+      'name' => 'required|max:255',
+      'resolution' => 'required|numeric',
+      'schedule' => 'required',
+      'schedule.*.day' => 'required|date',
+      'schedule.*.from' => 'required|simple_hour',
+      'schedule.*.to' => 'bail|required|simple_hour|after_at_least:schedule.*.from,resolution',
+    ], [
+      'name.required' => 'Nazwa spotkania jest wymagana',
+      'name.max' => 'Nazwa spotkania nie może być dłuższa niż 255 znaków',
+      'resolution.numeric' => 'Niepoprawny czas spotkania',
+      'schedule.required' => 'Musisz wybrać dni spotkania',
+      'schedule.*.day' => 'Niepoprawny dzień',
+      'schedule.*.from.required' => 'Godzina początkowa jest wymagana',
+      'schedule.*.from.simple_hour' => 'Niepoprawna godzina początkowa',
+      'schedule.*.to.required' => 'Godzina końcowa jest wymagana',
+      'schedule.*.to.simple_hour' => 'Niepoprawna godzina końcowa',
+      'schedule.*.to.after_at_least' => 'Godzina końcowa musi uwzględniać czas trwania spotkania',
+    ]);
+
     $result = \DB::transaction(function () use ($request)
     {
       $meeting = Meeting::create($request->all());
