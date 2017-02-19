@@ -17,26 +17,33 @@ class MeetingAnswersController extends Controller
     {
       /** @var Meeting $meeting */
       $meeting = Meeting::query()->with('days.hours')->where('hash', $hash)->first();
-      if (!$meeting) {
+      if(!$meeting)
+      {
         return false;
       }
 
-      foreach ($request->input('response') as $day => $hours) {
+      foreach($request->input('response') as $day => $hours)
+      {
         $dayDate = Carbon::createFromFormat('Y.m.d', $day);
         /** @var MeetingDay $d */
-        $d = $meeting->getAttribute('days')->first(function($value) use ($dayDate){
+        $d = $meeting->getAttribute('days')->first(function ($value) use ($dayDate)
+        {
           return $value->day->isSameDay($dayDate);
         });
-        if (!$d) {
+        if(!$d)
+        {
           return false;
         }
 
-        foreach ($hours as $hour => $answer) {
+        foreach($hours as $hour => $answer)
+        {
           /** @var MeetingDayHour $h */
-          $h = $d->getAttribute('hours')->first(function($value) use ($hour){
+          $h = $d->getAttribute('hours')->first(function ($value) use ($hour)
+          {
             return $value->hour == $hour;
           });
-          if (!$h) {
+          if(!$h)
+          {
             return false;
           }
 
@@ -45,7 +52,8 @@ class MeetingAnswersController extends Controller
             'answer' => $answer,
           ]);
 
-          if (!$result) {
+          if(!$result)
+          {
             return false;
           }
         }
