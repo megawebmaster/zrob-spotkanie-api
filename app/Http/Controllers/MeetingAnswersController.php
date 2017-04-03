@@ -13,6 +13,16 @@ class MeetingAnswersController extends Controller
 {
   public function create(Request $request, string $hash)
   {
+    $this->validate($request, [
+      'name' => 'required|max:255',
+      'response' => 'required|meeting_response:'.$hash,
+    ], [
+      'name.required' => 'Twoje imię jest wymagane',
+      'name.max' => 'Imię nie może być dłuższe niż 255 znaków',
+      'response.required' => 'Twoje odpowiedzi są konieczne!',
+      'response.meeting_response' => 'Nieprawidłowa odpowiedź',
+    ]);
+
     $result = \DB::transaction(function () use ($request, $hash)
     {
       /** @var Meeting $meeting */
@@ -24,7 +34,7 @@ class MeetingAnswersController extends Controller
 
       foreach($request->input('response') as $day => $hours)
       {
-        $dayDate = Carbon::createFromFormat('Y.m.d', $day);
+        $dayDate = Carbon::createFromFormat('Y-m-d', $day);
         /** @var MeetingDay $d */
         $d = $meeting->getAttribute('days')->first(function ($value) use ($dayDate)
         {
