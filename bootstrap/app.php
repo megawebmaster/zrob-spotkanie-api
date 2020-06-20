@@ -99,8 +99,9 @@ $app->register(App\Providers\AppServiceProvider::class);
 |
 */
 
-$app->group(['namespace' => 'App\Http\Controllers'], function ($app) {
+$app->router->group(['namespace' => 'App\Http\Controllers'], function ($router) use ($app) {
     require __DIR__.'/../app/Http/routes.php';
 });
+
 
 return $app;

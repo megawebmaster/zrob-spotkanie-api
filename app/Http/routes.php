@@ -11,11 +11,11 @@
 |
 */
 
-$app->get('/', function () use ($app) {
+$router->get('/', function () use ($app) {
     return $app->version();
 });
-$app->group(['prefix' => 'v1'], function($app){
-  $app->get('meetings/{hash}', 'MeetingsController@get');
-  $app->post('meetings', 'MeetingsController@create');
-  $app->post('meetings/{hash}', 'MeetingAnswersController@create');
+$router->group(['prefix' => 'v1'], function($router){
+  $router->get('meetings/{hash}', 'MeetingsController@get');
+  $router->post('meetings', 'MeetingsController@create');
+  $router->post('meetings/{hash}', 'MeetingAnswersController@create');
 });
