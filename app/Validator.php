@@ -4,11 +4,11 @@ declare(strict_types=1);
 namespace App;
 
 use Carbon\Carbon;
-use Symfony\Component\Translation\TranslatorInterface;
+use Illuminate\Translation\Translator;
 
 class Validator extends \Illuminate\Validation\Validator
 {
-  public function __construct(TranslatorInterface $translator, array $data, array $rules, array $messages = [], array $customAttributes = [])
+  public function __construct(Translator $translator, array $data, array $rules, array $messages = [], array $customAttributes = [])
   {
     parent::__construct($translator, $data, $rules, $messages, $customAttributes);
     $this->dependentRules[] = 'AfterAtLeast';

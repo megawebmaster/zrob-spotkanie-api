@@ -11,7 +11,7 @@ return [
     |
     */
 
-    'allow_origins' => ['http://localhost:3000', 'http://zrobspotkanie.pl'],
+    'allow_origins' => ['http://localhost:3000', 'https://spotkanie.megawebmaster.pl'],
 
     /*
     |--------------------------------------------------------------------------
@@ -71,38 +71,5 @@ return [
     */
 
     'max_age' => 0,
-
-    /*
-    |--------------------------------------------------------------------------
-    | Origin not allowed
-    |--------------------------------------------------------------------------
-    |
-    | Creates the response if the origin is not allowed.
-    |
-    */
-
-    'origin_not_allowed' => null,
-
-    /*
-    |--------------------------------------------------------------------------
-    | Method not allowed
-    |--------------------------------------------------------------------------
-    |
-    | Creates the response if the method is not allowed.
-    |
-    */
-
-    'method_not_allowed' => null,
-
-    /*
-    |--------------------------------------------------------------------------
-    | Header not allowed
-    |--------------------------------------------------------------------------
-    |
-    | Creates the response if the header is not allowed.
-    |
-    */
-
-    'header_not_allowed' => null,
 
 ];
