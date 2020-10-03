@@ -29,8 +29,8 @@ class MeetingsController extends Controller
       'resolution' => 'required|numeric',
       'schedule' => 'required',
       'schedule.*.day' => 'required|date',
-      'schedule.*.from' => 'required|simple_hour',
-      'schedule.*.to' => 'bail|required|simple_hour|after_at_least:schedule.*.from,resolution',
+      'schedule.*.from' => 'simple_hour',
+      'schedule.*.to' => 'bail|simple_hour|after_at_least:schedule.*.from,resolution',
     ], [
       'name.required' => 'Nazwa spotkania jest wymagana',
       'name.max' => 'Nazwa spotkania nie może być dłuższa niż 255 znaków',
@@ -52,14 +52,25 @@ class MeetingsController extends Controller
       {
         /** @var MeetingDay $meetingDay */
         $meetingDay = $meeting->days()->create($day);
-        $start = $this->_getMinutes($meetingDay->getAttribute('from'));
-        $end = $this->_getMinutes($meetingDay->getAttribute('to'));
+        $from = $meetingDay->getAttribute('from');
+        $to = $meetingDay->getAttribute('to');
         $resolution = (int)$meeting->getAttribute('resolution');
-        $hours = range($start, $end - $resolution, $resolution);
 
-        foreach($hours as $hour)
+        if (!empty($from) && !empty($to)) {
+          $start = $this->_getMinutes($meetingDay->getAttribute('from'));
+          $end = $this->_getMinutes($meetingDay->getAttribute('to'));
+          $hours = range($start, $end - $resolution, $resolution);
+
+          foreach($hours as $hour)
+          {
+            $meetingDay->hours()->create(['hour' => $this->_getTime($hour)]);
+          }
+        }
+        else if($resolution == 1440)
         {
-          $meetingDay->hours()->create(['hour' => $this->_getTime($hour)]);
+          /** @var Carbon $day */
+          $day = $meetingDay->getAttribute('day');
+          $meetingDay->hours()->create(['hour' => $day->format('Y-m-d')]);
         }
       }
 

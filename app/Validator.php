@@ -43,7 +43,9 @@ class Validator extends \Illuminate\Validation\Validator
 
   public function validateSimpleHour($attribute, $value)
   {
-    return preg_match('@^\d{1,2}(:\d{2})?$@', $value) === 1 &&
+    return
+      $value &&
+      preg_match('@^\d{1,2}(:\d{2})?$@', $value) === 1 &&
       $this->createTimeFromValue($value)->lte(Carbon::now()->endOfDay());
   }
 
@@ -61,7 +63,16 @@ class Validator extends \Illuminate\Validation\Validator
     $hasAnyMissingDay = $meeting->getAttribute('days')->map(function(MeetingDay $item) use ($meeting, $value){
       $day = $item->getAttribute('day')->format('Y-m-d');
 
-      return isset($value[$day]) && !$this->_getHoursRange($item, $meeting)->map(function($hour) use ($value, $day){
+      if(!isset($value[$day]))
+      {
+        return false;
+      }
+
+      if($item->isFullDay()) {
+        return isset($value[$day][$day]);
+      }
+
+      return !$this->_getHoursRange($item, $meeting)->map(function($hour) use ($value, $day){
           return isset($value[$day][$this->_getTime($hour)]);
         })->contains(false);
     })->contains(false);

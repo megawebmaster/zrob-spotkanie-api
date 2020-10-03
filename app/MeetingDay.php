@@ -23,4 +23,14 @@ class MeetingDay extends Model
   {
     return $this->hasMany(MeetingDayHour::class);
   }
+
+  public function isFullDay(): bool
+  {
+    return $this->attributes['from'] == null && $this->attributes['to'] == null;
+  }
+
+  protected function serializeDate(\DateTimeInterface $date)
+  {
+    return \Illuminate\Support\Carbon::instance($date)->format('Y-m-d');
+  }
 }
