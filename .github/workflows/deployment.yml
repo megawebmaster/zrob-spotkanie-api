@@ -39,4 +39,4 @@ jobs:
           script_stop: true
           script: |
             cd ${{ secrets.SERVER_APP_LOCATION }}
-            php74 artisan migrate --force
+            DB_DATABASE=database/database.sqlite php74 artisan migrate --force
