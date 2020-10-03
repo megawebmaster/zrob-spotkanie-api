@@ -59,7 +59,12 @@ class MeetingsController extends Controller
         if (!empty($from) && !empty($to)) {
           $start = $this->_getMinutes($meetingDay->getAttribute('from'));
           $end = $this->_getMinutes($meetingDay->getAttribute('to'));
-          $hours = range($start, $end - $resolution, $resolution);
+          $hours = range($start, $end, $resolution);
+
+          // Remove last element if it is equal to $end
+          if ($hours[count($hours) - 1] == $end) {
+            array_pop($hours);
+          }
 
           foreach($hours as $hour)
           {
