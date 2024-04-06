@@ -1,0 +1,13 @@
+.github
+.git
+.idea
+.env*
+.gitignore
+.tool-versions
+.dockerignore
+Dockerfile
+docker-compose.yml
+var/cache/*
+var/log/*
+storage/framework/*
+storage/logs/*

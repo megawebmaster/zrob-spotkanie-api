@@ -1,0 +1,43 @@
+version: "3.2"
+services:
+  db:
+    image: postgres:alpine
+    environment:
+      POSTGRES_USER: spotkanie
+      POSTGRES_PASSWORD: example
+      POSTGRES_DB: zrob-spotkanie
+    ports:
+      - "5432:5432"
+    volumes:
+      - db:/var/lib/postgresql/data
+  app:
+    build: .
+    environment:
+      - APP_ENV=prod
+      - APP_DEBUG=0
+      - APP_KEY=
+      - CORS_ALLOW_ORIGIN=http://localhost:3000
+      - DB_CONNECTION=pgsql
+      - DATABASE_URL=pgsql://spotkanie:example@db:5432/zrob-spotkanie
+      - PORT=8880
+      - CACHE_DRIVER=array
+      - QUEUE_DRIVER=sync
+#    user: root
+    links:
+      - db
+    ports:
+      - "8080:8880"
+#    volumes:
+#      - .:/var/www/html
+#      - var:/var/www/html/var
+  mailer:
+    image: axllent/mailpit
+    ports:
+      - "1025"
+      - "8025"
+    environment:
+      MP_SMTP_AUTH_ACCEPT_ANY: 1
+      MP_SMTP_AUTH_ALLOW_INSECURE: 1
+volumes:
+  db: ~
+  var: ~
