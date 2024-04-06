@@ -11,6 +11,9 @@
 |
 */
 
+/** @var $app \Illuminate\Support\Facades\App */
+/** @var $router \Laravel\Lumen\Routing\Router */
+
 $router->get('/', function () use ($app) {
     return $app->version();
 });

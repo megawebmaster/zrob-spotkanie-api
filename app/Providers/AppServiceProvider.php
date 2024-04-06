@@ -7,7 +7,7 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-  public function boot()
+  public function boot(): void
   {
     /** @var \Illuminate\Validation\Factory $validator */
     $validator = $this->app['validator'];
@@ -16,13 +16,7 @@ class AppServiceProvider extends ServiceProvider
     });
   }
 
-  /**
-   * Register any application services.
-   *
-   * @return void
-   */
-  public function register()
+  public function register(): void
   {
-    //
   }
 }

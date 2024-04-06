@@ -14,9 +14,14 @@ class MeetingDay extends Model
   protected $dates = ['day'];
   public $timestamps = false;
 
-  public function setDayAttribute($value)
+  public function setDayAttribute($value): void
   {
     $this->attributes['day'] = Carbon::createFromFormat('Y-m-d\\TH:i:s.uZ', $value);
+  }
+
+  public function getDay(): Carbon
+  {
+    return Carbon::createFromFormat('Y-m-d', $this->getAttribute('day'));
   }
 
   public function hours(): HasMany
@@ -29,7 +34,7 @@ class MeetingDay extends Model
     return $this->attributes['from'] == null && $this->attributes['to'] == null;
   }
 
-  protected function serializeDate(\DateTimeInterface $date)
+  protected function serializeDate(\DateTimeInterface $date): string
   {
     return \Illuminate\Support\Carbon::instance($date)->format('Y-m-d');
   }

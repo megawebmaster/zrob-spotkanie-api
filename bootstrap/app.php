@@ -22,7 +22,6 @@ $app = new Laravel\Lumen\Application(
 );
 
 $app->withFacades();
-
 $app->withEloquent();
 
 /*
@@ -35,8 +34,6 @@ $app->withEloquent();
 | your own bindings here if you like or you can make another file.
 |
 */
-
-$app->register(\Nord\Lumen\Cors\CorsServiceProvider::class);
 
 $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
@@ -60,16 +57,8 @@ $app->singleton(
 */
 
 $app->middleware([
-  Nord\Lumen\Cors\CorsMiddleware::class
+    App\Http\Middleware\CorsMiddleware::class
 ]);
-
-// $app->middleware([
-//    App\Http\Middleware\ExampleMiddleware::class
-// ]);
-
-// $app->routeMiddleware([
-//     'auth' => App\Http\Middleware\Authenticate::class,
-// ]);
 
 /*
 |--------------------------------------------------------------------------
@@ -83,8 +72,6 @@ $app->middleware([
 */
 
 $app->register(App\Providers\AppServiceProvider::class);
-// $app->register(App\Providers\AuthServiceProvider::class);
-// $app->register(App\Providers\EventServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------

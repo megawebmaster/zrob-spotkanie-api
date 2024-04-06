@@ -1,0 +1,17 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Development" type="PhpBuiltInWebServerConfigurationType" factoryName="PHP Built-in Web Server" document_root="$PROJECT_DIR$/public" port="8080">
+    <CommandLine>
+      <envs>
+        <env name="APP_DEBUG" value="1" />
+        <env name="APP_ENV" value="local" />
+        <env name="APP_KEY" value="" />
+        <env name="CACHE_DRIVER" value="array" />
+        <env name="CORS_ALLOW_ORIGIN" value="http://localhost:3000" />
+        <env name="DATABASE_URL" value="pgsql://spotkanie:example@localhost:5432/zrob-spotkanie" />
+        <env name="DB_CONNECTION" value="pgsql" />
+        <env name="QUEUE_DRIVER" value="sync" />
+      </envs>
+    </CommandLine>
+    <method v="2" />
+  </configuration>
+</component>
