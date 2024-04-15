@@ -13,8 +13,8 @@ services:
   app:
     build: .
     environment:
-      - APP_ENV=prod
-      - APP_DEBUG=0
+      - APP_ENV=local
+      - APP_DEBUG=1
       - APP_KEY=
       - CORS_ALLOW_ORIGIN=http://localhost:5173
       - DB_CONNECTION=pgsql
@@ -22,14 +22,10 @@ services:
       - PORT=8880
       - CACHE_DRIVER=array
       - QUEUE_DRIVER=sync
-#    user: root
     links:
       - db
     ports:
       - "8080:8880"
-#    volumes:
-#      - .:/var/www/html
-#      - var:/var/www/html/var
   mailer:
     image: axllent/mailpit
     ports:
