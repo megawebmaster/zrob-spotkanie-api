@@ -1,5 +1,5 @@
 FROM trafex/php-nginx:latest
-MAINTAINER Amadeusz Starzykiewicz <megawebmaster@gmail.com>
+LABEL org.opencontainers.image.authors="megawebmaster@gmail.com"
 
 USER root
 
