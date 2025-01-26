@@ -104,6 +104,6 @@ class Validator extends \Illuminate\Validation\Validator
     $hours = floor($hour / 60);
     $minutes = $hour - $hours * 60;
 
-    return Carbon::createFromTime($hours, $minutes)->format('H:i:s');
+    return Carbon::createFromTime($hours, $minutes)->format('H:i');
   }
 }
