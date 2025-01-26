@@ -1,4 +1,4 @@
-FROM trafex/php-nginx:latest
+FROM trafex/php-nginx:3.6.0
 LABEL org.opencontainers.image.authors="megawebmaster@gmail.com"
 
 USER root
