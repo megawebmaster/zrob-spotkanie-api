@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\DB;
+
 require_once __DIR__.'/../vendor/autoload.php';
 
 (new Laravel\Lumen\Bootstrap\LoadEnvironmentVariables(
@@ -88,5 +91,10 @@ $app->router->group(['namespace' => 'App\Http\Controllers'], function ($router) 
     require __DIR__.'/../app/Http/routes.php';
 });
 
+try {
+    DB::query()->from('pg_settings')->where('name = ?', 'port')->get();
+} catch (QueryException $e) {
+    // Do nothing - this is just DB warmup query
+}
 
 return $app;
