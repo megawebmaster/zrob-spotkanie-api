@@ -23,6 +23,6 @@ class Meeting extends Model
 
   public function days(): HasMany
   {
-    return $this->hasMany(MeetingDay::class);
+    return $this->hasMany(MeetingDay::class)->orderBy('day');
   }
 }

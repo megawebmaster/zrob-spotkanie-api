@@ -26,7 +26,7 @@ class MeetingDay extends Model
 
   public function hours(): HasMany
   {
-    return $this->hasMany(MeetingDayHour::class);
+    return $this->hasMany(MeetingDayHour::class)->orderBy('hour');
   }
 
   public function isFullDay(): bool
